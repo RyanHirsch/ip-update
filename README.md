@@ -9,6 +9,9 @@ NODE_VERSION=10
 nvm use $NODE_VERSION
 yarn init -y
 yarn global upgrade typescript tslint
+mkdir -p src/
+mkdir -p .vscode/
+
 echo $NODE_VERSION > .nvmrc
 docker pull node:$NODE_VERSION
 docker pull node:$NODE_VERSION-alpine
@@ -20,6 +23,8 @@ cp "${DOTFILES}/node/default-tsjest.config.js" ./jest.config.js
 cp "${DOTFILES}/node/default-tsdockerfile" ./Dockerfile
 cp "${DOTFILES}/node/default-tsdockerignore" ./.dockerignore
 cp "${DOTFILES}/node/default-tslintstagedrc" ./.lintstagedrc
+cp "${DOTFILES}/node/default-tslaunch.json" ./.vscode/launch.json
+cp "${DOTFILES}/node/default-settings.json" ./.vscode/settings.json
 
 npx npm-add-script -k "prettier:base" -v "prettier --parser typescript" -f
 npx npm-add-script -k "prettier:check" -v "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\"" -f
@@ -30,10 +35,9 @@ npx npm-add-script -k "build" -v "tsc" -f
 npx npm-add-script -k "test" -v "jest" -f
 npx npm-add-script -k "test:watch" -v "jest --watch" -f
 npx npm-add-script -k "dev" -v "ts-node src/index.ts" -f
-npx npm-add-script -k "dev:watch" -v "tsnd --respawn --no-notify src/index.ts" -f
+npx npm-add-script -k "dev:watch" -v "ts-node-dev --respawn --no-notify src/index.ts" -f
 npx npm-add-script -k "precommit" -v "lint-staged" -f
 
-mkdir -p src/
 touch src/index.ts
 yarn add -D typescript \
   ts-node-dev \
@@ -57,5 +61,7 @@ cp ./tslint.json "${DOTFILES}/node/default-tslint.json"
 cp ./jest.config.js "${DOTFILES}/node/default-tsjest.config.js"
 cp ./Dockerfile "${DOTFILES}/node/default-tsdockerfile"
 cp ./.dockerignore "${DOTFILES}/node/default-tsdockerignore"
-cp  ./.lintstagedrc "${DOTFILES}/node/default-tslintstagedrc"
+cp ./.lintstagedrc "${DOTFILES}/node/default-tslintstagedrc"
+cp ./.vscode/launch.json "${DOTFILES}/node/default-tslaunch.json"
+cp ./.vscode/settings.json "${DOTFILES}/node/default-settings.json"
 ```

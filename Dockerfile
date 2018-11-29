@@ -20,7 +20,7 @@ CMD ["yarn", "test"]
 
 
 ### Final
-FROM node:10
+FROM node:10-alpine
 ENV NODE_ENV=production
 WORKDIR /app
 COPY ["package.json", "yarn.lock", "./"]

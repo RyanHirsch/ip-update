@@ -11,5 +11,5 @@
     "baseUrl": "."
   },
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["src/**/*.ts"]
+  "include": ["typings/**/*.d.ts", "src/**/*.ts"]
 }

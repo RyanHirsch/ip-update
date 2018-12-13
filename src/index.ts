@@ -1,7 +1,13 @@
-const world = "🎉";
+import nodeFetch from "node-fetch";
+import { timer } from "rxjs";
 
-export function hello(word: string = world): string {
-  return `Hello ${word}!`;
-}
+const oneSecond = 1000;
+const oneMinute = 60 * oneSecond;
+const roughlyOneMinute = oneMinute * 1.1;
 
-console.log(hello());
+timer(roughlyOneMinute);
+nodeFetch("//ifconfig.co/json")
+  .then(r => {
+    return r.json();
+  })
+  .then((ip: IpInfo) => console.log(ip.ip));

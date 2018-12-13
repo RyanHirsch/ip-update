@@ -8,8 +8,9 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "typeRoots": ["src/types", "node_modules/@types"]
   },
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["typings/**/*.d.ts", "src/**/*.ts"]
+  "include": ["src"]
 }

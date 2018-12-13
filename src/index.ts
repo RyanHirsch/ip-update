@@ -6,7 +6,7 @@ const oneMinute = 60 * oneSecond;
 const roughlyOneMinute = oneMinute * 1.1;
 
 timer(roughlyOneMinute);
-nodeFetch("//ifconfig.co/json")
+nodeFetch("http://ifconfig.co/json")
   .then(r => {
     return r.json();
   })

@@ -34,6 +34,7 @@
     "typescript": "^3.2.1"
   },
   "dependencies": {
+    "abort-controller": "^2.0.0",
     "aws-sdk": "^2.367.0",
     "node-fetch": "^2.3.0",
     "rxjs": "^6.3.3"

@@ -6,6 +6,10 @@
     "no-console": {
       "severity": "warning",
       "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
+    },
+    "ordered-imports": false,
+    "import-name": {
+      "severity": "warning"
     }
   },
   "rulesDirectory": []

@@ -1,13 +1,30 @@
-import nodeFetch from "node-fetch";
-import { timer } from "rxjs";
+import AbortController from "abort-controller";
+import nodeFetch, { Request } from "node-fetch";
+import { Observable } from "rxjs";
 
-const oneSecond = 1000;
-const oneMinute = 60 * oneSecond;
-const roughlyOneMinute = oneMinute * 1.1;
+function fetch(options: string | Request): Observable<IpInfo> {
+  const controller = new AbortController();
 
-timer(roughlyOneMinute);
-nodeFetch("http://ifconfig.co/json")
-  .then(r => {
-    return r.json();
-  })
-  .then((ip: IpInfo) => console.log(ip.ip));
+  return new Observable(subscriber => {
+    nodeFetch(options, { signal: controller.signal })
+      .then((response: any) => {
+        return response.json();
+      })
+      .then((json: IpInfo) => {
+        subscriber.next(json);
+        subscriber.complete();
+      })
+      .catch((err: any) => {
+        if (err.name === "AbortError") {
+          return;
+        }
+        subscriber.error();
+      });
+
+    return () => {
+      controller.abort();
+    };
+  });
+}
+
+fetch("http://ifconfig.co/json").subscribe((ip: IpInfo) => console.log(ip.ip));

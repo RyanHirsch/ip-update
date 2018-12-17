@@ -14,8 +14,13 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "dev": "ts-node -r tsconfig-paths/register src/index.ts",
-    "dev:watch": "ts-node-dev --respawn --no-notify src/index.ts",
-    "precommit": "lint-staged"
+    "dev:watch": "ts-node-dev --respawn --no-notify src/index.ts"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
